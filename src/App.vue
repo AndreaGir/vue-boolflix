@@ -1,19 +1,56 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div>
+      <div class="">
+        <input type="text" v-model="search">
+      </div>
+
+      <div v-for=" movie  in listaMovie" :key="movie.id">
+        <div>
+          {{ movie.title}}
+        </div>
+        
+      </div>
+    </div>
+    
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+
+import axios from 'axios'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    
+  },
+  data(){
+    return{
+      search: 'batman',
+      listaMovie: [],
+      baseURL: 'https://api.themoviedb.org/3'
+    }
+  },
+  created() {
+    /* axios.get(`https://api.themoviedb.org/3/search/movie?api_key=f1a4307ca5d0830b05b752ed609bbbb0&query=${ this.search}` */
+    axios.get(`${this.baseURL}/search/movie`,{
+      params: {
+        api_key: 'f1a4307ca5d0830b05b752ed609bbbb0',
+        query: this.search,
+        language: 'it-IT'
+      }
+    })
+    .then( res => {
+        this.listaMovie = res.data.results
+      })
+
+      
   }
+  
 }
+
 </script>
 
 <style lang="scss">
