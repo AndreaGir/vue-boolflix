@@ -1,29 +1,42 @@
 <template>
   <div id="app">
-    <div>
+    <div class="tutto">
       <div class="header">
         <div class="centroheader">
             <h1>BOOLFLIX</h1>
             <div>
               <input type="text" v-model="search" @keyup.enter="fechData">
-              <button>Cerca</button>
+              <button @click="fechData">Cerca</button>
             </div>
         </div>
       </div>
 
-      <div v-for=" movie  in listaMovie" :key="movie.id">
-        <img :src="movie.poster_path" alt="">
-        <div>
-          <h3>{{ movie.title }}</h3>
-          <span>{{movie.original_title}}</span> -
-          <span>{{movie.original_language }}</span>
-          <p>Voto: {{ movie.vote_average }}</p>
-        </div>
+      <div class="card">
+        <div  v-for=" movie  in listaMovie" :key="movie.id">
+       
+         <div class="carta-sotto">
+           <img :src="`http://image.tmdb.org/t/p/w342${ movie.poster_path }`" alt="">
+           <div class="scritte">
+              <h3>Titolo: {{ movie.title }}</h3>
+              <span>{{movie.original_title}}</span> -
+              <span>{{movie.original_language }}</span>
+              <p>Voto: {{ movie.vote_average }}</p>
+            </div> 
+         </div>
+          
+         
+       
         
+        
+       </div> 
       </div>
+
+     
     </div>
 
     <MyMain />
+
+    <!-- <MyMain v-for=" movie  in listaMovie" :key="movie.id" :currentMovie="movie"/> -->
     
   </div>
 </template>
@@ -118,4 +131,47 @@ export default {
 
     }
 }
+.card{
+  height: 20%;
+  max-width: 100%;
+  margin: none;
+  display: flex;
+  justify-content: space-around;
+  gap: 0;
+  flex-wrap: wrap;
+  background-color: grey;
+}
+.carta-sotto{
+  max-width: 200px;
+  max-height: 100%;
+  padding: 10px;
+  position: relative;
+    img{
+      width: 200px;
+    }
+    .scritte{
+   min-width: 100%;
+   height: 100%;
+   position: absolute;
+   top: 0;
+   left: 0;
+   padding: 10px;
+   visibility: hidden;
+   color: white;
+   background-color: black;
+   margin: 10px;
+   margin-bottom: 10px;
+}
+
+}
+.carta-sotto:hover .scritte{
+  
+  visibility: visible;
+}
+.tutto{
+  width: 100%;
+  height: 100%;
+background-color: grey;
+}
+
 </style>
